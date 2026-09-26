@@ -1,0 +1,55 @@
+# ── 私有仓库的忽略规则 ──
+# 这是**完整工作仓库**：所有 .md、ops/ 脚本、设计稿都要进来，
+# 这样电脑丢了 clone 一次就能 100% 还原。
+# 只挡三类东西：密钥、可重新生成的产物、运行时垃圾。
+
+# 1) 密钥 —— 绝不进 git，即使私有仓库也不行
+#    还原方式见 README-RESTORE 段落：vercel env pull
+.env
+.env.local
+.env*.local
+.env.production
+!.env.example
+
+# 2) 可重新生成的产物
+node_modules/
+.next/
+out/
+build/
+next-env.d.ts
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# 3) 运行时垃圾
+ops/logs/
+*.log
+.DS_Store
+.vercel/
+.playwright-mcp/
+/shots/
+coverage/
+
+# ===== 公开仓库隐私纪律（根目录模式一律加前导斜杠，否则会吞掉 app/ 下的同名目录）=====
+*.md
+!README.md
+.env*
+!.env.example
+/.flow/
+/docs/
+/data/
+/ops-reports/
+/agent*/
+/process*/
+/account*/
+/claude*/
+/notes/
+/private/
+/shots/
+/scripts/private/
+/.playwright-mcp/
+
+# 社媒登录会话（含 cookie 与设备指纹，绝不能进任何仓库）
+/ops/.social-profile/
+# 数据库备份：含餐厅邮箱、电话、地址等真人信息，不进仓库
+/ops/backups/
+/ops/.scratch/
